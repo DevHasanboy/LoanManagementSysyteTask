@@ -1,6 +1,5 @@
 package com.example.file.task.response;
 
-import com.example.file.task.request.ClientRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

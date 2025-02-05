@@ -1,13 +1,10 @@
 package com.example.file.task.mapper;
 
 import com.example.file.task.entity.Accounts;
-import com.example.file.task.entity.Client;
 import com.example.file.task.entity.User;
 import com.example.file.task.exception.ResourceNotFoundException;
-import com.example.file.task.repository.ClientRepository;
 import com.example.file.task.repository.UserRepository;
 import com.example.file.task.request.AccountRequest;
-import com.example.file.task.request.ClientRequest;
 import com.example.file.task.response.AccountResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,8 +14,6 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class AccountMapper {
-    private final ClientRepository clientRepository;
-    private final ClientMapper clientMapper;
     private final UserRepository userRepository;
 
     public Accounts toEntity(AccountRequest request) {

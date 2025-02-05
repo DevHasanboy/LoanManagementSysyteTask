@@ -13,4 +13,6 @@ public interface LoanService {
     ApiResponse<?> updateById(Long id, LoanRequest request);
 
     ApiResponse<?> deleteById(Long id);
+
+    ApiResponse<?> findAll();
 }

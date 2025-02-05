@@ -1,7 +1,6 @@
 package com.example.file.task.validation;
 
 import com.example.file.task.dto.ErrorDto;
-import com.example.file.task.repository.ClientRepository;
 import com.example.file.task.repository.UserRepository;
 import com.example.file.task.request.LoanRequest;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,6 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class LoanValidation {
-    private final ClientRepository clientRepository;
     private final UserRepository userRepository;
 
     public List<ErrorDto> validate(LoanRequest request) {

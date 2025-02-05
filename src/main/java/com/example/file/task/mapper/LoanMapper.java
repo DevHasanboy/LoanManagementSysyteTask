@@ -3,7 +3,6 @@ package com.example.file.task.mapper;
 import com.example.file.task.entity.Loan;
 import com.example.file.task.entity.User;
 import com.example.file.task.exception.ResourceNotFoundException;
-import com.example.file.task.repository.ClientRepository;
 import com.example.file.task.repository.UserRepository;
 import com.example.file.task.request.LoanRequest;
 import com.example.file.task.response.LoanResponse;
@@ -16,8 +15,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LoanMapper {
 
-    private final ClientRepository clientRepository;
-    private final ClientMapper clientMapper;
     private final UserRepository userRepository;
 
     public Loan toEntity(LoanRequest request) {

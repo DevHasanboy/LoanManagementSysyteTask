@@ -1,51 +1,33 @@
 package com.example.file.task.service.impl;
 
-import com.example.file.task.dto.ErrorDto;
-import com.example.file.task.entity.Client;
+import com.example.file.task.entity.User;
 import com.example.file.task.exception.ResourceNotFoundException;
-import com.example.file.task.mapper.ClientMapper;
-import com.example.file.task.repository.ClientRepository;
-import com.example.file.task.request.ClientRequest;
+import com.example.file.task.mapper.UserMapper;
+import com.example.file.task.repository.UserRepository;
+import com.example.file.task.request.UserRequest;
 import com.example.file.task.response.ApiResponse;
+import com.example.file.task.response.UserResponse;
 import com.example.file.task.service.ClientService;
-import com.example.file.task.validation.ClientValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
 public class ClientServiceImpl implements ClientService {
-    private final ClientRepository clientRepository;
-    private final ClientMapper clientMapper;
-    private final ClientValidation clientValidation;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    @Override
-    public ApiResponse<?> create(ClientRequest request) {
-        List<ErrorDto> errorList = this.clientValidation.validate(request);
-        if (!errorList.isEmpty()) {
-            return ApiResponse.builder()
-                    .message("Validation failed")
-                    .errorsList(errorList)
-                    .httpStatus(HttpStatus.BAD_REQUEST)
-                    .build();
-        }
-        Client entity = this.clientMapper.toEntity(request);
-        clientRepository.save(entity);
-        return ApiResponse.builder()
-                .success(true)
-                .message("Client created successfully")
-                .httpStatus(HttpStatus.CREATED)
-                .build();
-    }
 
     @Override
     public ApiResponse<?> getById(Long id) {
-        Client client = this.clientRepository.findById(id)
+        User client = this.userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
-        ClientRequest response = this.clientMapper.toResponse(client);
+        UserResponse response = this.userMapper.toResponse(client);
         return ApiResponse.builder()
                 .success(true)
                 .message("client by ID successfully")
@@ -55,11 +37,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ApiResponse<?> updateById(ClientRequest request, Long id) {
-        Client client = this.clientRepository.findById(id)
+    public ApiResponse<?> updateById(UserRequest request, Long id) {
+        User client = this.userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
-        this.clientMapper.updateToEntityFromResponse(request, client);
-        this.clientRepository.save(client);
+        this.userMapper.updateToEntityFromResponse(client, request);
+        this.userRepository.save(client);
         return ApiResponse.builder()
                 .success(true)
                 .message("Client Update Successfully")
@@ -69,13 +51,26 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ApiResponse<?> deleteById(Long id) {
-        Client client = this.clientRepository.findById(id)
+        User client = this.userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Client not found"));
-        this.clientRepository.delete(client);
+        this.userRepository.delete(client);
         return ApiResponse.builder()
                 .success(true)
                 .message("Client Delete Successfully")
                 .httpStatus(HttpStatus.OK)
                 .build();
+    }
+
+    @Override
+    public ApiResponse<?> findAll() {
+        List<User> list = this.userRepository.findAll();
+        List<UserResponse> result = new ArrayList<>();
+        if (!list.isEmpty()) {
+            for (User user : list) {
+                result.add(userMapper.toResponse(user));
+            }
+            return ApiResponse.builder().message("User List").success(true).data(result).httpStatus(HttpStatus.OK).build();
+        }
+        return ApiResponse.builder().message("User List").success(true).data(new ArrayList<>()).httpStatus(HttpStatus.OK).build();
     }
 }

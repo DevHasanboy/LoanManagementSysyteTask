@@ -49,6 +49,12 @@ public class LoanController {
     @Operation(tags = "delete", summary = "Delete loan By Id")
     public ApiResponse<?> deleteById(@PathVariable("id") Long id) {
         return this.loanService.deleteById(id);
+    }
 
+    @PreAuthorize("hasRole('MANAGER')")
+    @GetMapping("/list")
+    @Operation(tags = "Get All", summary = "Get All loan list")
+    public ApiResponse<?> findAll() {
+        return this.loanService.findAll();
     }
 }

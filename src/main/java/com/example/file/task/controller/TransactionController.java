@@ -49,4 +49,12 @@ public class TransactionController {
         return this.transactionService.deleteById(id);
     }
 
+    @Operation(
+            summary = "Transaction ni ID si orqali o`chirish"
+    )
+    @DeleteMapping("/list")
+    public ApiResponse<?> findAll() {
+        return this.transactionService.findAll();
+    }
+
 }

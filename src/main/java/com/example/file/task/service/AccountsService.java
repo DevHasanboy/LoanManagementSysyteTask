@@ -15,5 +15,6 @@ public interface AccountsService {
 
     ApiResponse<?> deleteById(Long id);
 
+    ApiResponse<?> findAll();
 
 }

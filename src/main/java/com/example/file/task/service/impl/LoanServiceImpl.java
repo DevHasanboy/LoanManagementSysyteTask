@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -80,5 +81,19 @@ public class LoanServiceImpl implements LoanService {
                 .message("Loan delete successfully")
                 .httpStatus(HttpStatus.OK)
                 .build();
+    }
+
+    @Override
+    public ApiResponse<?> findAll() {
+        List<Loan> list = this.loanRepository.findAll();
+        List<LoanResponse> result = new ArrayList<>();
+        if (!list.isEmpty()) {
+            for (Loan loan : list) {
+                LoanResponse response = this.loanMapper.toResponse(loan);
+                result.add(response);
+            }
+            return ApiResponse.builder().success(true).message("Loan List").data(result).httpStatus(HttpStatus.OK).build();
+        }
+        return ApiResponse.builder().success(true).message("Loan List").data(new ArrayList<>()).httpStatus(HttpStatus.OK).build();
     }
 }

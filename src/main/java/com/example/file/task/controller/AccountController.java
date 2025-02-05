@@ -57,4 +57,14 @@ public class AccountController {
         return accountsService.deleteById(id);
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
+    @DeleteMapping("/list")
+    @Operation(
+            tags = "Get All",
+            summary = "Get All account list"
+    )
+    public ApiResponse<?> findAll() {
+        return accountsService.findAll();
+    }
+
 }

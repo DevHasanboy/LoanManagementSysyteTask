@@ -1,6 +1,6 @@
 package com.example.file.task.controller;
 
-import com.example.file.task.request.ClientRequest;
+import com.example.file.task.request.UserRequest;
 import com.example.file.task.response.ApiResponse;
 import com.example.file.task.service.ClientService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,15 +19,6 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @PostMapping("/create")
-    @Operation(
-            tags = "Create",
-            summary = "Create new Client"
-    )
-    public ApiResponse<?> create(@RequestBody @Valid ClientRequest clientRequest) {
-        return this.clientService.create(clientRequest);
-
-    }
 
     @GetMapping("/{id}/get-by-id")
     @Operation(
@@ -44,7 +35,7 @@ public class ClientController {
             tags = "Update",
             summary = "Update Client By Id"
     )
-    public ApiResponse<?> updateById(@PathVariable("id") Long id, @RequestBody @Valid ClientRequest clientRequest) {
+    public ApiResponse<?> updateById(@PathVariable("id") Long id, @RequestBody @Valid UserRequest clientRequest) {
         return this.clientService.updateById(clientRequest, id);
 
     }
@@ -57,5 +48,14 @@ public class ClientController {
     public ApiResponse<?> deleteById(@PathVariable("id") Long id) {
         return this.clientService.deleteById(id);
 
+    }
+
+    @GetMapping("/list")
+    @Operation(
+            tags = "Get All",
+            summary = "Get All Client List "
+    )
+    public ApiResponse<?> findAll() {
+        return this.clientService.findAll();
     }
 }

@@ -12,4 +12,6 @@ public interface TransactionService {
     ApiResponse<?> updateById(TransactionRequest request,Long id);
 
     ApiResponse<?> deleteById(Long id);
+
+    ApiResponse<?> findAll();
 }

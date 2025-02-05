@@ -1,4 +1,4 @@
-package com.example.file.task.request;
+package com.example.file.task.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRequest {
+public class UserResponse {
+    private Long id;
     private String firstName;
     private String lastName;
-    private String password;
-    private String username;
-
 }

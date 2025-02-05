@@ -7,7 +7,6 @@ import com.example.file.task.entity.UserRole;
 import com.example.file.task.exception.ApiException;
 import com.example.file.task.exception.ResourceNotFoundException;
 import com.example.file.task.repository.RoleRepository;
-import com.example.file.task.repository.TokenRepository;
 import com.example.file.task.repository.UserRepository;
 import com.example.file.task.request.LoginRequest;
 import com.example.file.task.request.UserRequest;
@@ -36,7 +35,6 @@ public class AuthServiceImpl implements AuthService {
     private final UserValidation userValidation;
     private final UserDetailsServiceImpl userDetailsService;
     private final RoleRepository roleRepository;
-    private final TokenRepository tokenRepository;
 
     public AuthServiceImpl(UserRepository userRepository,
                            PasswordEncoder passwordEncoder,
@@ -44,8 +42,7 @@ public class AuthServiceImpl implements AuthService {
                            AuthenticationManager authenticationManager,
                            UserValidation userValidation,
                            UserDetailsServiceImpl userDetailsService,
-                           RoleRepository roleRepository,
-                           TokenRepository tokenRepository) {
+                           RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
@@ -53,7 +50,6 @@ public class AuthServiceImpl implements AuthService {
         this.userValidation = userValidation;
         this.userDetailsService = userDetailsService;
         this.roleRepository = roleRepository;
-        this.tokenRepository = tokenRepository;
     }
 
     @Override
