@@ -3,12 +3,13 @@ package com.example.file.task.repository;
 import com.example.file.task.entity.Accounts;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface AccountRepository extends JpaRepository<Accounts, Long> {
+public interface AccountRepository extends JpaRepository<Accounts, Long>, JpaSpecificationExecutor<Accounts> {
 
     @EntityGraph(
             attributePaths = {

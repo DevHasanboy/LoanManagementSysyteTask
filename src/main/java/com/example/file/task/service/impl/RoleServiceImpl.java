@@ -1,13 +1,18 @@
 package com.example.file.task.service.impl;
 
 import com.example.file.task.dto.RoleDto;
+import com.example.file.task.entity.AuditLogs;
 import com.example.file.task.entity.UserRole;
 import com.example.file.task.exception.ResourceNotFoundException;
 import com.example.file.task.mapper.RoleMapper;
 import com.example.file.task.repository.RoleRepository;
+import com.example.file.task.repository.UserRepository;
 import com.example.file.task.response.ApiResponse;
 import com.example.file.task.service.RoleService;
+import com.example.file.task.utils.Util;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -19,17 +24,23 @@ import java.util.List;
 public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
     private final RoleMapper roleMapper;
+    private final UserRepository userRepository;
+    private final Util util;
+
+    private static final Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
 
     @Override
     public ApiResponse<?> create(RoleDto dto) {
         UserRole entity = this.roleMapper.toEntity(dto);
         roleRepository.save(entity);
+        logger.info("Role created successfully");
         return ApiResponse.builder()
                 .success(true)
                 .message("Role created successfully")
                 .httpStatus(HttpStatus.CREATED)
                 .build();
     }
+
 
     @Override
     public ApiResponse<?> getById(Long id) {
@@ -95,4 +106,5 @@ public class RoleServiceImpl implements RoleService {
                 .httpStatus(HttpStatus.OK)
                 .build();
     }
+
 }

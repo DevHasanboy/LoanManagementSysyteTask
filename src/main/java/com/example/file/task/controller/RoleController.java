@@ -5,6 +5,7 @@ import com.example.file.task.response.ApiResponse;
 import com.example.file.task.service.RoleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class RoleController {
         this.roleService = roleService;
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @Operation(
             tags = "Create",
             summary = "Create new role")
@@ -29,6 +31,7 @@ public class RoleController {
 
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @Operation(
             tags = "Get",
             summary = "Get role by id"
@@ -39,6 +42,7 @@ public class RoleController {
 
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @Operation(
             tags = "Update",
             summary = "Update role by id"
@@ -49,6 +53,7 @@ public class RoleController {
 
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @Operation(
             tags = "Delete",
             summary = "Delete role by id"
@@ -59,6 +64,7 @@ public class RoleController {
 
     }
 
+    @PreAuthorize("hasRole('MANAGER')")
     @Operation(
             tags = "Get List",
             summary = "Role larni List ini olish"

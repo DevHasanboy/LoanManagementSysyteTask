@@ -98,7 +98,7 @@ public class AuthServiceImpl implements AuthService {
             new ApiException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
-        jwtUtil.generateToken(userDetails.getUsername());
+        String token = jwtUtil.generateToken(userDetails.getUsername());
 
         return ApiResponse.builder()
                 .success(true)
@@ -108,6 +108,7 @@ public class AuthServiceImpl implements AuthService {
                         .userId(user.getId())
                         .fullName(user.getFirstName() + " " + user.getLastName())
                         .username(user.getUsername())
+                        .token(token)
                         .build())
                 .build();
     }

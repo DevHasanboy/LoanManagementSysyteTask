@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,5 +16,7 @@ public class UserRequest {
     private String lastName;
     private String password;
     private String username;
+    private Set<Long> roles;
+
 
 }

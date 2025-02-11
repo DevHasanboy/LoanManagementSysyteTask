@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
@@ -31,7 +32,7 @@ public class JwtUtil {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         var roles = userDetails.getAuthorities()
                         .stream()
-                                .map( it -> it.getAuthority())
+                                .map(GrantedAuthority::getAuthority)
                                         .collect(Collectors.toSet())
                                                 .toString();
         claims.put("roles", roles);
@@ -60,7 +61,7 @@ public class JwtUtil {
     public Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
-                .setAllowedClockSkewSeconds(30)
+                .setAllowedClockSkewSeconds(35)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
