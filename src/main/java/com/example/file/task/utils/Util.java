@@ -20,7 +20,7 @@ public class Util {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            return userRepository.findByUsername(userDetails.getUsername()).get(); // Manager ID
+            return userRepository.findByUsername(userDetails.getUsername()).get(); // Manager
         }
         return null; // Agar foydalanuvchi topilmasa
     }
